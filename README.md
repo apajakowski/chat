@@ -1,4 +1,4 @@
-chat
+Chat
 ====
 
-Prosty chat
+Prosty chat w Meteorze
