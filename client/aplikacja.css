@@ -1,4 +1,16 @@
-html {
-    padding: 10px;
-    font-family: Antiqua, sans-serif;
+html, body {
+font-family: 'Armata', sans-serif;
+margin: 0px;
+display: table;
+width: 100%;
 }
+
+#main {
+font-family: 'Armata', sans-serif;
+display: table;
+width: 90%;
+margin: 0 auto;
+padding: 5%;
+}
+
+#message {width: 375px;}
