@@ -46,7 +46,7 @@ test('insert test message from server', function(done, server) {
         emit('message', message);
       }
     }).once('message', function(message) {
-      assert.equal(message.title, 'hello');
+      assert.equal(Messages.message, 'hello');
       done();
     });
 
@@ -66,7 +66,7 @@ test('insert test message from server', function(done, server) {
       }
       emit('done');
     }).once('message', function(message) {
-      assert.equal(message.title, 'from c2');
+      assert.equal(Messages.message, 'from c2');
       done();
     }).once('done', function() {
       c2.eval(insertMessage);
