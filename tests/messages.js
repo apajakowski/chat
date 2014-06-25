@@ -46,12 +46,16 @@ test('insert test message from server', function(done, server) {
         emit('message', message);
       }
     }).once('message', function(message) {
-      assert.equal(Messages.message, 'hello');
+      assert.equal(message.title, 'hello');
       done();
     });
 
     client.eval(function() {
-      Messages.insert({message: 'hello'});
+      Messages.insert({
+        name: 'test', 
+        message: 'hello', 
+        time: Date.now(),
+      });
     });
   });
 //////////////////////
