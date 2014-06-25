@@ -36,50 +36,47 @@ test('insert test message from server', function(done, server) {
     });
   });
 ////////////////////
-  test('using both client and the server', function(done, server, client) {
+ test('using both client and the server', function(done, server, client) {
     server.eval(function() {
-      Messages.find(message: 'hello').observe({
-        added: addedNewMessage
+      Messages.find().observe({
+        added: addedNewPost
       });
 
-      function addedNewMessage(message) {
+      function addedNewPost(message) {
         emit('message', message);
       }
     }).once('message', function(message) {
-      assert.equal(message.title, 'hello');
+      assert.equal(message.title, 'hello title');
       done();
     });
 
     client.eval(function() {
-      Messages.insert({
-        name: 'test', 
-        message: 'hello', 
-        time: Date.now(),
-      });
+      Messages.insert({title: 'hello title'});
     });
   });
+
 //////////////////////
-  test('using two clients', function(done, server, c1, c2) {
-    c1.eval(function() {
-      Messages.find().observe({
-        added: addedNewMessage
-      });
+  // test('using two clients', function(done, server, c1, c2) {
+  //   c1.eval(function() {
+  //     Messages.find().observe({
+  //       added: addedNewMessage
+  //     });
 
-      function addedNewMessage(message) {
-        emit('message', message);
-      }
-      emit('done');
-    }).once('message', function(message) {
-      assert.equal(Messages.message, 'from c2');
-      done();
-    }).once('done', function() {
-      c2.eval(insertMessage);
-    });
+  //     function addedNewMessage(message) {
+  //       emit('message', message);
+  //     }
+  //     emit('done');
+  //   }).once('message', function(message) {
+  //     assert.equal(Messages.message, 'from c2');
+  //     done();
+  //   }).once('done', function() {
+  //     c2.eval(insertMessage);
+  //   });
 
-    function insertMessage() {
-      Messages.insert({message: 'from c2'});
-    }
-  });
+  //   function insertMessage() {
+  //     Messages.insert({message: 'from c2'});
+  //   }
+  // });
 
 
 });
