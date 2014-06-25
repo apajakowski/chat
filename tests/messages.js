@@ -35,9 +35,10 @@ test('insert test message from server', function(done, server) {
       done();
     });
   });
-////////////////////
- test('using both client and the server', function(done, server, client) {
-    server.eval(function() {
+
+//////////////////////
+test('using two clients', function(done, server, c1, c2) {
+    c1.eval(function() {
       Messages.find().observe({
         added: addedNewPost
       });
@@ -45,38 +46,18 @@ test('insert test message from server', function(done, server) {
       function addedNewPost(message) {
         emit('message', message);
       }
+      emit('done');
     }).once('message', function(message) {
       assert.equal(message.length, 1);
       done();
+    }).once('done', function() {
+      c2.eval(insertPost);
     });
 
-    client.eval(function() {
-      Messages.insert({name: 'test', message: 'hello title', time: Date.now(),});
-    });
+    function insertPost() {
+      Messages.insert({name: 'test', message: 'from c2', time: Date.now(),});
+    }
   });
-
-//////////////////////
-  // test('using two clients', function(done, server, c1, c2) {
-  //   c1.eval(function() {
-  //     Messages.find().observe({
-  //       added: addedNewMessage
-  //     });
-
-  //     function addedNewMessage(message) {
-  //       emit('message', message);
-  //     }
-  //     emit('done');
-  //   }).once('message', function(message) {
-  //     assert.equal(Messages.message, 'from c2');
-  //     done();
-  //   }).once('done', function() {
-  //     c2.eval(insertMessage);
-  //   });
-
-  //   function insertMessage() {
-  //     Messages.insert({message: 'from c2'});
-  //   }
-  // });
 
 
 });
