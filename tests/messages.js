@@ -48,7 +48,7 @@ test('using two clients', function(done, server, c1, c2) {
       }
       emit('done');
     }).once('message', function(message) {
-      assert.equal(message.length, 1);
+      assert.equal(message.title, 'from c2');
       done();
     }).once('done', function() {
       c2.eval(insertPost);
