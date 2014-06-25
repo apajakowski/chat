@@ -38,7 +38,7 @@ test('insert test message from server', function(done, server) {
 ////////////////////
   test('using both client and the server', function(done, server, client) {
     server.eval(function() {
-      Messages.find().observe({
+      Messages.find(message: 'hello').observe({
         added: addedNewMessage
       });
 
