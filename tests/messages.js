@@ -18,7 +18,9 @@ test('insert test message from client', function(done, client) {
          done();
        });
   });
+
 /////////////////////////
+
 test('insert test message from server', function(done, server) {
     server.eval(function() {
       Messages.insert({
@@ -35,29 +37,5 @@ test('insert test message from server', function(done, server) {
       done();
     });
   });
-
-//////////////////////
-test('using two clients', function(done, server, c1, c2) {
-    c1.eval(function() {
-      Messages.find().observe({
-        added: addedNewPost
-      });
-
-      function addedNewPost(message) {
-        emit('message', message);
-      }
-      emit('done');
-    }).once('message', function(message) {
-      assert.equal(message.title, 'from c2');
-      done();
-    }).once('done', function() {
-      c2.eval(insertPost);
-    });
-
-    function insertPost() {
-      Messages.insert({name: 'test', message: 'from c2', time: Date.now(),});
-    }
-  });
-
 
 });
