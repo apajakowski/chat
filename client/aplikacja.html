@@ -3,6 +3,13 @@
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet">
 <title>Aplikacja</title>
+<script>
+function zmienKolorNaWybrany() {
+var kolorek = document.getElementById('kolorek').value;
+var elem  = document.getElementById('messages');
+ elem.style.color = kolorek;
+}
+</script>
 <style>
 html, body {
 margin: 0px;
@@ -24,6 +31,9 @@ padding: 5%;
 <section id="main">
 <h3>Prosty chat w Meteorze</h3>
 
+<p>Kolor czcionki: </p>
+<input type="color" id="kolorek" />
+<button onclick="zmienKolorNaWybrany()">Zmień kolor</button>
 {{> input}}
 {{> messages}}
 </section>
