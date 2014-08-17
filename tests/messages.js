@@ -39,8 +39,10 @@ test('insert test message from server', function(done, server) {
   });
 ////////////////////////////
 
-test('change color - red', function(done) {
-  var e = window.document.getElementById('messages');
+test('red color', function(done) {
+  var element = document.createElement("div");
+  element.id = 'messages';
+  var e = document.getElementById('messages');
   e.style.color = "#f00";
   done();
 
