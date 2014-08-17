@@ -37,5 +37,27 @@ test('insert test message from server', function(done, server) {
       done();
     });
   });
+////////////////////////////
 
+test('change color - red', function(done) {
+  var e = document.getElementById('messages');
+  e.style.color = "#f00";
+  done();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////
 });
+
+
+

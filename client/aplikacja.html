@@ -38,11 +38,14 @@ padding: 5%;
 {{> messages}}
 </section>
 </body>
-<template name="messages">
-{{#each messages}}
-<strong>{{name}}:</strong> {{message}}<br>
-{{/each}}
-</template>
+<template name="messages"> 
+<section id="messages"> 
+<h2>Wiadomości:</h2> 
+{{#each messages}} 
+<strong>{{name}}:</strong> {{message}}<br> 
+{{/each}} 
+</section> 
+</template> 
 <template name="input">
 <p>Imię: <input type="text" id="name"></p>
 <p>Wiadomość: <input type="text" id="message"></p>
