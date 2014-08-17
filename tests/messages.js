@@ -44,7 +44,7 @@ test('change color - red', function(done) {
   e.style.color = "#f00";
   done();
 
-}
+});
 
 
 
