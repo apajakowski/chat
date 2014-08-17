@@ -40,9 +40,19 @@ test('insert test message from server', function(done, server) {
 ////////////////////////////
 
 test('red color', function(done) {
-  var element = document.createElement("div");
-  element.id = 'messages';
-  var e = document.getElementById('messages');
+  //<template name="messages"> 
+  //<section id="messages"> 
+  //<h2>Wiadomości:</h2> 
+  //{{#each messages}} 
+  //<strong>{{name}}:</strong> {{message}}<br> 
+  //{{/each}} 
+  //</section> 
+  //</template> 
+
+
+  //var element = document.createElement("div");
+  //element.id = 'messages';
+  var e = getElementById('messages');
   e.style.color = "#f00";
   done();
 
