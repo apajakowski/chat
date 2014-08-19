@@ -104,7 +104,7 @@ test('send an message without a name as client', function(done, client) {
     });
 
     client.once('message', function(message) {
-      assert.equal(name.length, 1);
+      assert.equal(message.length, 1);
       done();
     });
   });
@@ -121,7 +121,7 @@ test('send an message without a name as server', function(done, server) {
     });
 
     server.once('message', function(message) {
-      assert.equal(name.length, 1);
+      assert.equal(message.length, 1);
       done();
     });
   });
