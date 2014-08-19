@@ -57,6 +57,41 @@ test('insert test message from server', function(done, server) {
       done();
     });
   });
+
+test('send empty message - client', function(done, client) {
+    client.eval(function() {
+      Messages.insert({
+        name: 'test', 
+        message:'', 
+        time: Date.now(),
+      });
+      var message = Messages.find({ message: ''}).fetch();
+      emit('message', message);
+    });
+
+    client.once('message', function(message) {
+      assert.equal(message.length, 0);
+      done();
+    });
+  });
+
+test('send empty message - server', function(done, server) {
+    server.eval(function() {
+      Messages.insert({
+        name: 'test', 
+        message:'', 
+        time: Date.now(),
+      });
+      var message = Messages.find({ message: ''}).fetch();
+      emit('message', message);
+    });
+
+    server.once('message', function(message) {
+      assert.equal(message.length, 0);
+      done();
+    });
+  });
+
 ////////////////////////////
 
 test('red color', function(done, client) {
