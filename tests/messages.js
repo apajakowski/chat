@@ -2,22 +2,22 @@ var assert = require('assert');
 
 suite('Messages', function() {
 
+  test('client initialization', function(done, client) {
+    client.eval(function() {
+      var message = Messages.find().fetch();
+      emit('message', message);
+    }).once('message', function(message) {
+      assert.equal(message.length, 0);
+      done();
+    });
+  });
+
   test('server initialization', function(done, server) {
     server.eval(function() {
       var message = Messages.find().fetch();
       emit('message', message);
     }).once('message', function(message) {
-      assert.equal(contact.length, 0);
-      done();
-    });
-  });
-
-test('client initialization', function(done, client) {
-    client.eval(function() {
-      var message = Messages.find().fetch();
-      emit('message', message);
-    }).once('message', function(message) {
-      assert.equal(contact.length, 0);
+      assert.equal(message.length, 0);
       done();
     });
   });
