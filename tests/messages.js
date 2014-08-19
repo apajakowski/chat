@@ -58,7 +58,7 @@ test('insert test message from server', function(done, server) {
     });
   });
 
-test('send empty message - client', function(done, client) {
+test('send an empty message as client', function(done, client) {
     client.eval(function() {
       Messages.insert({
         name: 'test', 
@@ -75,7 +75,7 @@ test('send empty message - client', function(done, client) {
     });
   });
 
-test('send empty message - server', function(done, server) {
+test('send an empty message as server', function(done, server) {
     server.eval(function() {
       Messages.insert({
         name: 'test', 
@@ -88,6 +88,40 @@ test('send empty message - server', function(done, server) {
 
     server.once('message', function(message) {
       assert.equal(message.length, 1);
+      done();
+    });
+  });
+
+test('send an message without a name as client', function(done, client) {
+    client.eval(function() {
+      Messages.insert({
+        name: '', 
+        message:'test', 
+        time: Date.now(),
+      });
+      var message = Messages.find({ name: ''}).fetch();
+      emit('message', message);
+    });
+
+    client.once('message', function(message) {
+      assert.equal(name.length, 1);
+      done();
+    });
+  });
+
+test('send an message without a name as server', function(done, server) {
+    server.eval(function() {
+      Messages.insert({
+        name: '', 
+        message:'test', 
+        time: Date.now(),
+      });
+      var message = Messages.find({ name: ''}).fetch();
+      emit('message', message);
+    });
+
+    server.once('message', function(message) {
+      assert.equal(name.length, 1);
       done();
     });
   });
