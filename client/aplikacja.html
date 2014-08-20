@@ -35,12 +35,12 @@ padding: 5%;
 <input type="color" id="kolorek" />
 <button onclick="zmienKolorNaWybrany()">Zmień kolor</button>
 {{> input}}
+<h2>Wiadomosci:</h2> 
 {{> messages}}
 </section>
 </body>
 <template name="messages"> 
 <section id="messages"> 
-<h2>Wiadomości:</h2> 
 {{#each messages}} 
 <strong>{{name}}:</strong> {{message}}<br> 
 {{/each}} 
