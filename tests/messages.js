@@ -58,7 +58,7 @@ test('insert a test message as server', function(done, server) {
     });
   });
 
-test('send a empty message as client', function(done, client) {
+test('send an empty message as client', function(done, client) {
     client.eval(function() {
       Messages.insert({
         name: 'test', 
@@ -75,7 +75,7 @@ test('send a empty message as client', function(done, client) {
     });
   });
 
-test('send a empty message as server', function(done, server) {
+test('send an empty message as server', function(done, server) {
     server.eval(function() {
       Messages.insert({
         name: 'test', 
@@ -160,6 +160,40 @@ test('try to send nothing as server', function(done, server) {
     });
   });
 
+test('send a message as client that contains more than 25 characters', function(done, client) {
+    client.eval(function() {
+      Messages.insert({
+        name: 'test', 
+        message:'testtesttesttesttesttesttesttest', 
+        time: Date.now(),
+      });
+      var message = Messages.find({ message: 'testtesttesttesttesttesttesttest'}).fetch();
+      emit('message', message);
+    });
+
+    client.once('message', function(message) {
+      assert.equal(message.length, 1);
+      done();
+    });
+  });
+
+
+test('send a message as server that contains more than 25 characters', function(done, server) {
+    server.eval(function() {
+      Messages.insert({
+        name: 'test', 
+        message:'testtesttesttesttesttesttesttest', 
+        time: Date.now(),
+      });
+      var message = Messages.find({ message: 'testtesttesttesttesttesttesttest'}).fetch();
+      emit('message', message);
+    });
+
+    server.once('message', function(message) {
+      assert.equal(message.length, 1);
+      done();
+    });
+  });
 ////////////////////////////
 
 });
