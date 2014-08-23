@@ -22,7 +22,7 @@ suite('Messages', function() {
     });
   });
 
-test('insert test message from client', function(done, client) {
+test('insert a test message as client', function(done, client) {
     client.eval(function() {
         Messages.insert({
           name: 'testowiec',
@@ -41,7 +41,7 @@ test('insert test message from client', function(done, client) {
 
 /////////////////////////
 
-test('insert test message from server', function(done, server) {
+test('insert a test message as server', function(done, server) {
     server.eval(function() {
       Messages.insert({
         name: 'test', 
@@ -58,7 +58,7 @@ test('insert test message from server', function(done, server) {
     });
   });
 
-test('send an empty message as client', function(done, client) {
+test('send a empty message as client', function(done, client) {
     client.eval(function() {
       Messages.insert({
         name: 'test', 
@@ -75,7 +75,7 @@ test('send an empty message as client', function(done, client) {
     });
   });
 
-test('send an empty message as server', function(done, server) {
+test('send a empty message as server', function(done, server) {
     server.eval(function() {
       Messages.insert({
         name: 'test', 
@@ -92,7 +92,7 @@ test('send an empty message as server', function(done, server) {
     });
   });
 
-test('send an message without a name as client', function(done, client) {
+test('send a message without a name as client', function(done, client) {
     client.eval(function() {
       Messages.insert({
         name: '', 
@@ -109,7 +109,7 @@ test('send an message without a name as client', function(done, client) {
     });
   });
 
-test('send an message without a name as server', function(done, server) {
+test('send a message without a name as server', function(done, server) {
     server.eval(function() {
       Messages.insert({
         name: '', 
@@ -117,6 +117,40 @@ test('send an message without a name as server', function(done, server) {
         time: Date.now(),
       });
       var message = Messages.find({ name: ''}).fetch();
+      emit('message', message);
+    });
+
+    server.once('message', function(message) {
+      assert.equal(message.length, 1);
+      done();
+    });
+  });
+
+test('try to send nothing as client', function(done, client) {
+    client.eval(function() {
+      Messages.insert({
+        name: '', 
+        message:'', 
+        time: Date.now(),
+      });
+      var message = Messages.find({ name: '', message: ''}).fetch();
+      emit('message', message);
+    });
+
+    client.once('message', function(message) {
+      assert.equal(message.length, 1);
+      done();
+    });
+  });
+
+test('try to send nothing as server', function(done, server) {
+    server.eval(function() {
+      Messages.insert({
+        name: '', 
+        message:'', 
+        time: Date.now(),
+      });
+      var message = Messages.find({ name: '', message: ''}).fetch();
       emit('message', message);
     });
 
