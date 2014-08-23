@@ -70,7 +70,7 @@ test('send an empty message as client', function(done, client) {
     });
 
     client.once('message', function(message) {
-      assert.equal(message.length, 0);
+      assert.equal(message.length, 1);
       done();
     });
   });
@@ -128,24 +128,6 @@ test('send an message without a name as server', function(done, server) {
 
 ////////////////////////////
 
-test('red color', function(done, server) {
-  var e = document.getElementById('messages');
-  e.style.color = "#f00";
-  done();
-
-});
-
-
-
-
-
-
-
-
-
-
-
-/////////////////////////////
 });
 
 
